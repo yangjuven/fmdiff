@@ -46,6 +46,10 @@ if [ -z "$leftfile" ] || [ -z "$rightfile" ]; then
 	exit 2
 fi
 
+# set text encoding attribute in order to make it readable
+xattr -w com.apple.TextEncoding "`enca -L zh_cn -e $leftfile`" "$leftfile"
+xattr -w com.apple.TextEncoding "`enca -L zh_cn -e $rightfile`" "$rightfile"
+
 if svn info "$rightfile" &>/dev/null; then
 	mergefile="$rightfile"
 fi
